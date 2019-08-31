@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block manifest %}{% endblock %}
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    
+    {% block css_assets %}{% endblock %}
+    
+    {% block head_favicon %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('build/static/favicon_white.ico') }}"/>
+    {% endblock %}
+    
+    {% block head_javascripts %}
+    {% endblock %}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
