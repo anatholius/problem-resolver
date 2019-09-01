@@ -53,9 +53,9 @@ Encore
      */
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
-    // .enableSourceMaps(!Encore.isProduction())
+    .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    // .enableVersioning(Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
     
     // enables Sass/SCSS support
     .enableSassLoader()
@@ -149,17 +149,33 @@ Encore
         };
     })
     
+    //*
     .addPlugin(new WorkboxPlugin.InjectManifest({
-        // "globDirectory": "https://127.0.0.1:8083/build",
-        // "globPatterns":  [
-        //     "**/*.{json,js,css,svg,png}",
-        // ],
-        // "globIgnores": [
-        //     "**/sw-template.js",
-        // ],
         "swDest": "..\\sw.js",
         "swSrc":  "assets\\pwa\\sw-template.js",
     }))
+    /*/
+    .addPlugin(new WorkboxPlugin.GenerateSW({
+        swDest:     "..\\sw.js",
+        // exclude:        /sw\-template\.js$/,
+        runtimeCaching: [
+            {
+                urlPattern: /\/.*\.(?:json,js,css,html,php)$/,
+                handler:    'CacheFirst',
+                options:    {
+                    cacheName: 'precache-app-files',
+                },
+            },
+            {
+                urlPattern: /\/.*\.(?:svg.png.jpg.jpeg.gif)$/,
+                handler:    'CacheFirst',
+                options:    {
+                    cacheName: 'precache-app-images',
+                },
+            },
+        ],
+    }))
+    //*/
     
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

@@ -34,6 +34,29 @@ export default class ProblemResolveApp extends React.Component {
                 path:  this.project_assets_dir + 'sw.js',
                 scope: './',
             },
+            on:            {
+                serviceWorkerRegisterSuccess:   (registration) => {
+                    console.group('registration worker succeed');
+                    console.log(registration);
+                    console.groupEnd();
+                },
+                serviceWorkerRegisterError:     (error) => {
+                    console.group('registration worker succeed');
+                    console.log(error);
+                    console.groupEnd();
+                },
+                serviceWorkerUnregisterSuccess: (registration) => {
+                    console.group('registration worker succeed');
+                    console.log(registration);
+                    console.groupEnd();
+                },
+                serviceWorkerUnregisterError:   (registration, error) => {
+                    console.group('registration worker succeed');
+                    console.log('registration', registration);
+                    console.log('error', error);
+                    console.groupEnd();
+                },
+            },
             // App routes
             routes,
         };
