@@ -1,21 +1,24 @@
 {
-    "name": "anatholius/sff7",
-    "description":"Symfony with Framework7",
+    "name": "anatholius/problem-resolver",
+    "description":"Problem Resolver",
     "type": "project",
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "api-platform/api-pack": "^1.2",
+        "sensio/framework-extra-bundle": "^5.4",
         "symfony/console": "4.3.*",
         "symfony/dotenv": "4.3.*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "4.3.*",
         "symfony/maker-bundle": "^1.13",
+        "symfony/twig-bundle": "4.3.*",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "symfony/debug-pack": "^1.0",
+        "symfony/profiler-pack": "^1.0",
         "symfony/webpack-encore-bundle": "^1.6"
     },
     "config": {

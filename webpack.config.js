@@ -1,4 +1,5 @@
-var Encore = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 console.log('Encore.isProduction()', Encore.isProduction());
 console.log('Encore.isDev()', Encore.isDev());
@@ -11,13 +12,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    // directory where compiled assets will be stored
+// directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     .setManifestKeyPrefix('build/')
-
+    
     /*
      * ENTRY CONFIG
      *
@@ -27,18 +28,22 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+    /*
+    .createSharedEntry('layout', './assets/js/layout.js')
+    /*/
+    .splitEntryChunks()
+    //*/
     .addEntry('app', './assets/js/app.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
-
+    
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-    .splitEntryChunks()
-
+    
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
-    .enableSingleRuntimeChunk()
-    // .disableSingleRuntimeChunk()
-
+    // .enableSingleRuntimeChunk()
+    .disableSingleRuntimeChunk()
+    
     /*
      * FEATURE CONFIG
      *
@@ -48,18 +53,13 @@ Encore
      */
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
-    .enableSourceMaps(!Encore.isProduction())
+    // .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+    // .enableVersioning(Encore.isProduction())
     
-    .copyFiles([
-        // copies to {output}/static
-        {from: './assets/static', to: 'static/[path][name].[ext]'},
-    ])
-        
     // enables Sass/SCSS support
     .enableSassLoader()
-        
+    
     // enables @babel/preset-env polyfills
     .configureBabel((babelConfig) => {
         const plugins = [];
@@ -72,27 +72,109 @@ Encore
             '@babel/plugin-proposal-class-properties',
         );
         babelConfig.plugins = plugins
-    
+        
     }, {
         useBuiltIns: 'usage',
-        corejs: 3
+        corejs:      3,
     })
-
-
+    
+    .copyFiles([
+        // copies to {output}/static
+        {from: './assets/static', to: 'static/[path][name].[ext]'},
+        // {from: './assets/pwa', to: 'pwa/[path][name].[ext]'},
+    ])
+    
+    .configureManifestPlugin((options) => {
+        options.fileName = 'manifest.json';
+        let basePath = '';
+        if (Encore.isDevServer()) {
+            options.publicPath = 'https://127.0.0.1:8083';
+            basePath = 'https://127.0.0.1:8083';
+        } else if (Encore.isDev()) {
+            // options.publicPath = 'https://127.0.0.1:8083';
+            basePath = '';
+        }
+        const iconTemplate = 'white/';
+        options.seed = {
+            name:                          'problem-resolver',
+            short_name:                    'problem-resolver',
+            "icons":                       [
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-72x72.png`,
+                    "sizes": "72x72",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-96x96.png`,
+                    "sizes": "96x96",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-128x128.png`,
+                    "sizes": "128x128",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-144x144.png`,
+                    "sizes": "144x144",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-152x152.png`,
+                    "sizes": "152x152",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-192x192.png`,
+                    "sizes": "192x192",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-384x384.png`,
+                    "sizes": "384x384",
+                    "type":  "image/png",
+                },
+                {
+                    "src":   `${basePath}/build/static/icons/${iconTemplate}icon-512x512.png`,
+                    "sizes": "512x512",
+                    "type":  "image/png",
+                },
+            ],
+            "display":                     "standalone",
+            "scope":                       "/",
+            "start_url":                   "/",
+            "theme_color":                 "#000000",
+            "background_color":            "#ffffdd",
+            "prefer_related_applications": false,
+        };
+    })
+    
+    .addPlugin(new WorkboxPlugin.InjectManifest({
+        // "globDirectory": "https://127.0.0.1:8083/build",
+        // "globPatterns":  [
+        //     "**/*.{json,js,css,svg,png}",
+        // ],
+        // "globIgnores": [
+        //     "**/sw-template.js",
+        // ],
+        "swDest": "..\\sw.js",
+        "swSrc":  "assets\\pwa\\sw-template.js",
+    }))
+    
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
     
-        
+    
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
-
+    // .enableIntegrityHashes(Encore.isProduction())
+    
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
-
+    
     // uncomment if you use API Platform Admin (composer req api-admin)
     .enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+//.addEntry('admin', './assets/js/admin.js')
 ;
 
 module.exports = Encore.getWebpackConfig();
