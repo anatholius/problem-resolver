@@ -1,5 +1,3 @@
-importScripts("/build/precache-manifest.7f23f41fbac699a33ebcac129d0d8ade.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
-
 //custom adjustments
 console.log('my-custom-adjustments');
 

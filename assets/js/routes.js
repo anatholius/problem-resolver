@@ -6,33 +6,47 @@ import NotFoundPage from './components/pages/NotFoundPage';
 import PanelLeftPage from './components/pages/PanelLeftPage';
 import PanelRightPage from './components/pages/PanelRightPage';
 
+const secure = (component) => {
+    return (routeTo, routeFrom, resolve, reject) => {
+        console.log('routeFrom',routeFrom);
+        console.log('routeTo',routeTo);
+        return resolve({
+            component: component,
+        },{
+            props: {
+                showInstallButton: false
+            }
+        });
+    }
+};
+
 export default [
-  {
-    path: '/',
-    component: HomePage,
-  },
-  {
-    path: '/panel-left/',
-    component: PanelLeftPage,
-  },
-  {
-    path: '/panel-right/',
-    component: PanelRightPage,
-  },
-  {
-    path: '/about/',
-    component: AboutPage,
-  },
-  {
-    path: '/form/',
-    component: FormPage,
-  },
-  {
-    path: '/dynamic-route/blog/:blogId/post/:postId/',
-    component: DynamicRoutePage,
-  },
-  {
-    path: '(.*)',
-    component: NotFoundPage,
-  },
+    {
+        path:  '/',
+        async: secure(HomePage),
+    },
+    {
+        path:      '/panel-left/',
+        component: PanelLeftPage,
+    },
+    {
+        path:      '/panel-right/',
+        component: PanelRightPage,
+    },
+    {
+        path:  '/about/',
+        async: secure(AboutPage),
+    },
+    {
+        path:      '/form/',
+        component: FormPage,
+    },
+    {
+        path:      '/dynamic-route/blog/:blogId/post/:postId/',
+        component: DynamicRoutePage,
+    },
+    {
+        path:      '(.*)',
+        component: NotFoundPage,
+    },
 ];

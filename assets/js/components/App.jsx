@@ -3,6 +3,8 @@ import {
     App,
     Block,
     BlockFooter,
+    Button,
+    Icon,
     Link,
     List,
     ListButton,
@@ -19,11 +21,70 @@ import {
 } from 'framework7-react';
 
 import routes from './../routes';
+// import './../../../public/sw.js';
 
 // export default function (props) {
 export default class ProblemResolveApp extends React.Component {
     displayName = 'ProblemResolveApp';
+    // project_assets_dir = 'https://127.0.0.1:8083/build/';
     project_assets_dir = '';
+    
+    constructor(props) {
+        super(props);
+        
+        this.state = {};
+    }
+    
+    componentDidMount() {
+        
+        if (self.navigator.onLine) {
+            this.setState({
+                online: true,
+            });
+        } else {
+            this.setState({
+                online: false,
+            });
+        }
+        
+        self.addEventListener('beforeinstallprompt', (e) => {
+            // Stash the event so it can be triggered later.
+            this.deferredPrompt = e;
+            
+            this.setState({
+                showInstallButton: true,
+            });
+        });
+        
+        self.addEventListener("online", () => {
+            this.setState({
+                online: true,
+            });
+        });
+        self.addEventListener("offline", () => {
+            this.setState({
+                online: false,
+            });
+        });
+    }
+    
+    installApp = (e) => {
+        this.setState({
+            showInstallButton: false,
+        });
+        // Show the prompt
+        this.deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        this.deferredPrompt.userChoice
+            .then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                this.deferredPrompt = null;
+            });
+    };
     
     render() {
         const f7params = {
@@ -31,17 +92,22 @@ export default class ProblemResolveApp extends React.Component {
             name:          'Problem Resolver',
             theme:         'auto',
             serviceWorker: {
-                path:  this.project_assets_dir + 'sw.js',
-                scope: './',
+                path:  this.project_assets_dir + '/sw.js',
+                scope: '/',
             },
             on:            {
+                init:                           () => {
+                    console.log('App init', this.$f7);
+                },
                 serviceWorkerRegisterSuccess:   (registration) => {
                     console.group('registration worker succeed');
-                    console.log(registration);
+                    console.log('registration', registration);
+                    const cacheStrategy = 'precache-app-page';
+                    
                     console.groupEnd();
                 },
                 serviceWorkerRegisterError:     (error) => {
-                    console.group('registration worker succeed');
+                    console.group('registration worker error');
                     console.log(error);
                     console.groupEnd();
                 },
@@ -63,7 +129,9 @@ export default class ProblemResolveApp extends React.Component {
         return (
             <App params={f7params}>
                 {/* Statusbar */}
-                <Statusbar/>
+                <Statusbar>
+                    You are {this.state.online ? 'ONLINE' : 'OFFLINE'}. You can
+                </Statusbar>
                 
                 {/* Left Panel */}
                 <Panel left cover themeDark>
@@ -73,10 +141,14 @@ export default class ProblemResolveApp extends React.Component {
                 {/* Right Panel */}
                 <Panel right reveal themeDark>
                     <View url="/panel-right/"/>
+                    <Icon icon={`fad fa-signal-alt${this.state.online ? '' : '-1'}`}/>
                 </Panel>
-                
                 {/* Main View */}
-                <View id="main-view" url="/" main className="safe-areas"/>
+                <View id="main-view" url="/" main className="safe-areas"
+                      online={this.state.online}
+                      installApp={this.installApp}
+                      showInstallButton={this.state.showInstallButton}
+                />
                 
                 {/* Popup */}
                 <Popup id="popup">

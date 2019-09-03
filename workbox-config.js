@@ -1,8 +1,10 @@
 module.exports = {
-    "globDirectory": "public/",
-    "globPatterns":  [
+    globDirectory: "public/",
+    globPatterns:  [
         "**/*.{json,js,css,svg,png}",
+        "/",
     ],
-    "swDest":        "public\\sw.js",
-    // "swSrc":         "assets\\pwa\\sw-template.js",
+    swDest:        "public/sw.js",
+    skipWaiting:   false,
+    // "swSrc":         "assets/pwa/sw-customizations.js",
 };

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block manifest %}
-    <link rel="manifest" href="{{ asset('build/manifest.json') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
 {% endblock %}
 
 {% block title %}PWA Problem Resolver{% endblock %}
@@ -17,35 +17,9 @@
 
 {% block body %}
     <div id="app"></div>
-    <output id="result"></output>
-
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('app') }}
-    
-    <script>
-        
-        // if ('serviceWorker' in navigator) {
-        //     navigator.serviceWorker.register('sw.js').then(() => {
-        //         const channel = new BroadcastChannel('service-worker-channel');
-        //         channel.onmessage = message => {
-        //             if (message.data.promptToReload) {
-        //                 if (confirm('Updates available. Would you like to reload?')) {
-        //                     channel.postMessage({
-        //                         skipWaiting: true,
-        //                     })
-        //                 }
-        //             }
-        //         }
-        //        
-        //     });
-        //    
-        //     navigator.serviceWorker.addEventListener('changeSomething', () => {
-        //         window.location.reload();
-        //     })
-        // }
-    
-    </script>
 {% endblock %}
