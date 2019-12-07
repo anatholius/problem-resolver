@@ -1,13 +1,5 @@
-###> PhpStorm internals ###
-/.idea
-###< PhpStorm internals ###
-
-###> behat/symfony2-extension ###
-behat.yml
-###< behat/symfony2-extension ###
 
 ###> symfony/framework-bundle ###
-*.phar
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -16,34 +8,17 @@ behat.yml
 /vendor/
 ###< symfony/framework-bundle ###
 
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
 npm-debug.log
 yarn-error.log
+*.lock
 ###< symfony/webpack-encore-bundle ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-###< phpunit/phpunit ###
-
-###> liip/imagine-bundle ###
-/public/media/cache/
-###< liip/imagine-bundle ###
-
-###> excluded during app flow ###
-/package-lock.json
-/*.lock
-/documents
-/public/uploads
-###< excluded during app flow ###
-
-###> test JSON's ###
-test.*.json
-###< test JSON's ###
-
-###> downloaded examples ###
-*.pdf
-*.zip
-*.gz
-###< downloaded examples ###
+/.idea

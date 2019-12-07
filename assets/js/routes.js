@@ -8,14 +8,14 @@ import PanelRightPage from './components/pages/PanelRightPage';
 
 const secure = (component) => {
     return (routeTo, routeFrom, resolve, reject) => {
-        console.log('routeFrom',routeFrom);
-        console.log('routeTo',routeTo);
+        console.log('routeFrom', routeFrom);
+        console.log('routeTo', routeTo);
         return resolve({
             component: component,
-        },{
+        }, {
             props: {
-                showInstallButton: false
-            }
+                showInstallButton: false,
+            },
         });
     }
 };
@@ -39,7 +39,7 @@ export default [
     },
     {
         path:      '/form/',
-        component: FormPage,
+        component: secure(FormPage),
     },
     {
         path:      '/dynamic-route/blog/:blogId/post/:postId/',

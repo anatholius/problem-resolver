@@ -16,17 +16,15 @@ import {
     Page,
     Panel,
     Popup,
-    Statusbar,
+    Appbar,
     View,
 } from 'framework7-react';
 
 import routes from './../routes';
-// import './../../../public/sw.js';
 
-// export default function (props) {
 export default class ProblemResolveApp extends React.Component {
     displayName = 'ProblemResolveApp';
-    // project_assets_dir = 'https://127.0.0.1:8083/build/';
+    // project_assets_dir = 'https://127.0.0.1:8083/build';
     project_assets_dir = '';
     
     constructor(props) {
@@ -129,9 +127,11 @@ export default class ProblemResolveApp extends React.Component {
         return (
             <App params={f7params}>
                 {/* Statusbar */}
-                <Statusbar>
-                    You are {this.state.online ? 'ONLINE' : 'OFFLINE'}. You can
-                </Statusbar>
+                <Appbar>
+                    You are {this.state.online ? 'ONLINE' : 'OFFLINE'}.
+                    {this.state.online && this.state.showInstallButton &&
+                    <Button onClick={this.installApp}>Install this App</Button>}
+                </Appbar>
                 
                 {/* Left Panel */}
                 <Panel left cover themeDark>

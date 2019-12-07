@@ -12,7 +12,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-// directory where compiled assets will be stored
+    // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath((Encore.isDevServer() ? 'https://127.0.0.1:8083' : '') + '/build')
@@ -80,16 +80,16 @@ Encore
     
     .copyFiles([
         // copies to {output}/static
-        {from: './assets/static', to: '/static/[path][name].[ext]'},
+        {from: './assets/static', to: 'static/[path][name].[ext]'},
         // {from: './assets/pwa', to: 'pwa/[path][name].[ext]'},
     ])
     
     .configureManifestPlugin((options) => {
-        options.fileName = '../manifest.json';
+        options.fileName = 'manifest.json';
         let basePath = '';
         if (Encore.isDevServer()) {
             options.publicPath = 'https://127.0.0.1:8083/';
-            basePath = 'https://127.0.0.1:8083/';
+            basePath = 'https://127.0.0.1:8083/build/';
         } else if (Encore.isDev()) {
             // options.publicPath = 'https://127.0.0.1:8083';
             basePath = '';
@@ -100,42 +100,42 @@ Encore
             short_name:                  'PR',
             icons:                       [
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-72x72.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-72x72.png`,
                     "sizes": "72x72",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-96x96.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-96x96.png`,
                     "sizes": "96x96",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-128x128.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-128x128.png`,
                     "sizes": "128x128",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-144x144.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-144x144.png`,
                     "sizes": "144x144",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-152x152.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-152x152.png`,
                     "sizes": "152x152",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-192x192.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-192x192.png`,
                     "sizes": "192x192",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-384x384.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-384x384.png`,
                     "sizes": "384x384",
                     "type":  "image/png",
                 },
                 {
-                    "src":   `${basePath}build/static/icons/${iconTemplate}icon-512x512.png`,
+                    "src":   `${basePath}static/icons/${iconTemplate}icon-512x512.png`,
                     "sizes": "512x512",
                     "type":  "image/png",
                 },
@@ -181,7 +181,7 @@ Encore
         ],
     }))
     .addPlugin(new WorkboxPlugin.InjectManifest({
-        "swDest": "../sw.js",
+        "swDest": "sw.js",
         "swSrc":  "assets\\pwa\\sw-customizations.js",
     }))
     
