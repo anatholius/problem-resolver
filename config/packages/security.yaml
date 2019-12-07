@@ -1,14 +1,63 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+        admin:
+            algorithm: auto
+        client:
+            algorithm: auto
+        employer:
+            algorithm: auto
+        employee:
+            algorithm: auto
+    
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_EMPLOYER, ROLE_TEST]
+        ROLE_TEST: [ROLE_ALLOWED_TO_SWITCH]
+        ROLE_EMPLOYER: [ROLE_EMPLOYEE]
+        ROLE_EMPLOYEE: [IS_AUTHENTICATED_FULLY]
+    
+    
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        
+            json_login:
+                check_path: app_login_api
+                username_path: email
+                password_path: password
+#                failure_handler: 
+        
+            logout:
+                path: app_logout_api
+    
+    
         main:
-            anonymous: lazy
-
+            anonymous: true
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthenticator
+#                entry_point: App\Security\LoginFormAuthenticator
+        
+            json_login:
+                check_path: app_login_api
+                username_path: email
+                password_path: password
+#                failure_handler: 
+        
+            logout:
+                path: app_logout_api
+        
+        
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
