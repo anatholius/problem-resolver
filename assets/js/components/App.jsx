@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     App,
     Block,
@@ -21,19 +22,82 @@ import {
 } from 'framework7-react';
 
 import routes from './../routes';
+import AppConfig from "../Config/AppConfig";
+import HomePage from "./pages/HomePage";
+import PanelLeftPage from "./pages/PanelLeftPage";
+import PanelRightPage from "./pages/PanelRightPage";
+import FormPage from "./pages/FormPage";
+import AboutPage from "./pages/AboutPage";
+import DynamicRoutePage from "./pages/DynamicRoutePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default class ProblemResolveApp extends React.Component {
     displayName = 'ProblemResolveApp';
     // project_assets_dir = 'https://127.0.0.1:8083/build';
     project_assets_dir = '';
+    /** @type AppConfig */
+    _config;
     
     constructor(props) {
         super(props);
         
+        const appConfig = new AppConfig();
+        appConfig.addAsyncRoute('home', '/', {
+            component: HomePage,
+        }, {
+            transition: 'f7-cover-v',
+            context:    appConfig,
+        });
+        appConfig.addAsyncRoute('panelLeft', '/panel-left/', {
+            component: PanelLeftPage,
+        }, {
+            transition: 'f7-cover-v',
+            context:    appConfig,
+        });
+        appConfig.addAsyncRoute('panelRight', '/panel-right/', {
+            component: PanelRightPage,
+        }, {
+            transition: 'f7-cover-v',
+            context:    appConfig,
+        });
+        appConfig.addAsyncRoute('simpleForm', '/form/', {
+            component: FormPage,
+        }, {
+            transition: 'f7-cover-v',
+            context:    appConfig,
+        });
+        appConfig.addAsyncRoute('form', '/form/:formName/', {
+            component: FormPage,
+        }, {
+            transition: 'f7-cover-v',
+            context:    appConfig,
+        });
+        appConfig.addAsyncRoute('about', '/about/', {
+            component: AboutPage,
+        }, {
+            transition: 'f7-cover-v',
+            context:    appConfig,
+        });
+        appConfig.addAsyncRoute('dynamicPage', '/dynamic-route/blog/:blogId/post/:postId/', {
+            component: DynamicRoutePage,
+        }, {
+            transition: 'f7-cover-v',
+            // context:    appConfig,
+        });
+        appConfig.addAsyncRoute('notFounPage', '(.*)', {
+            component: NotFoundPage,
+        }, {
+            transition: 'f7-cover-v',
+            // context:    appConfig,
+        });
+        this._config = appConfig;
+        
         this.state = {};
     }
     
-    componentDidMount() {
+    componentDidMount = async () => {
+        this.app = this.$f7;
+        this.app.logger.info({_config: this._config});
         
         if (self.navigator.onLine) {
             this.setState({
@@ -64,7 +128,7 @@ export default class ProblemResolveApp extends React.Component {
                 online: false,
             });
         });
-    }
+    };
     
     installApp = (e) => {
         this.setState({
@@ -86,7 +150,7 @@ export default class ProblemResolveApp extends React.Component {
     
     render() {
         const f7params = {
-            id:            'pro.anatholius.problems',
+            id:            'pro.anatholius.issues',
             name:          'Problem Resolver',
             theme:         'auto',
             serviceWorker: {
@@ -124,8 +188,12 @@ export default class ProblemResolveApp extends React.Component {
             // App routes
             routes,
         };
+        
+        console.log('_config', this._config.getRoutes());
+        
+        // <App params={f7params}>
         return (
-            <App params={f7params}>
+            <App params={this._config} routes={this._config.getRoutes()}>
                 {/* Statusbar */}
                 <Appbar>
                     You are {this.state.online ? 'ONLINE' : 'OFFLINE'}.
@@ -146,6 +214,7 @@ export default class ProblemResolveApp extends React.Component {
                 {/* Main View */}
                 <View id="main-view" url="/" main className="safe-areas"
                       online={this.state.online}
+                      pushState
                       installApp={this.installApp}
                       showInstallButton={this.state.showInstallButton}
                 />

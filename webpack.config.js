@@ -150,14 +150,14 @@ Encore
     })
     
     .addPlugin(new WorkboxPlugin.GenerateSW({
-        "swDest":         "../sw.js",
+        "swDest":         "../pr-sw.js",
         "include":        [
-            /\/|\.json|\.js|\.css|.html|.php$/,
+            /\/|\.json|\.js|\.css|\.scss|.html|.php$/,
         ],
         "skipWaiting":    true,
         "runtimeCaching": [
             {
-                urlPattern: /\/.*\.(?:json,js,css,html,php)$/,
+                urlPattern: /\/.*\.(?:json,js,css,scss,html,php)$/,
                 handler:    'CacheFirst',
                 options:    {
                     cacheName: 'precache-app-files',
@@ -165,6 +165,13 @@ Encore
             },
             {
                 urlPattern: /\/.*\.(?:svg,png,jpg,jpeg,gif)$/,
+                handler:    'CacheFirst',
+                options:    {
+                    cacheName: 'precache-app-images',
+                },
+            },
+            {
+                urlPattern: /\/.*\.(?:ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)$/,
                 handler:    'CacheFirst',
                 options:    {
                     cacheName: 'precache-app-images',
@@ -181,7 +188,7 @@ Encore
         ],
     }))
     .addPlugin(new WorkboxPlugin.InjectManifest({
-        "swDest": "sw.js",
+        "swDest": "pr-sw.js",
         "swSrc":  "assets\\pwa\\sw-customizations.js",
     }))
     

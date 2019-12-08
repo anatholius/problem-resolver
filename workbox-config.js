@@ -4,7 +4,7 @@ module.exports = {
         "**/*.{json,js,css,svg,png}",
         "/",
     ],
-    swDest:        "public/sw.js",
+    swDest:        "public/pr-sw.js",
     skipWaiting:   false,
     // "swSrc":         "assets/pwa/sw-customizations.js",
 };
