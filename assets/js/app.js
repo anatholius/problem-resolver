@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 //import lauot stuuf like font-awesome
-import './../scss/layout.scss';
+// import './../scss/layout.scss';
 
 // Import Framework7
 import Framework7 from 'framework7/framework7.esm.bundle';
