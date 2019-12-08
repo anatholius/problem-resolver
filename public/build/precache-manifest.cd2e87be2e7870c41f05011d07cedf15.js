@@ -1,26 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b095078fd738780aea5b4aa55d411411",
-    "url": "/build/../pr-sw.js"
+    "revision": "1010b67e7df33fe4d37c",
+    "url": "/build/app.js"
   },
   {
-    "revision": "a2e2d67cd4f7f3f1c736",
-    "url": "/build/0.2fa32d2b.css"
-  },
-  {
-    "revision": "a2e2d67cd4f7f3f1c736",
-    "url": "/build/0.7e4656a9.js"
-  },
-  {
-    "revision": "8138442a57ea9f582c6c",
-    "url": "/build/app.bd97a04f.js"
-  },
-  {
-    "url": "/build/precache-manifest.e315a4ee3e58282daff41a017ac0f760.js"
-  },
-  {
-    "revision": "52834610778dc5db1808",
-    "url": "/build/runtime.ed3c6480.js"
+    "revision": "4d65e469b7afb6bd8bda",
+    "url": "/build/runtime.js"
   },
   {
     "revision": "7702c3dee145bffd128272b08ad719a1",
@@ -93,5 +78,13 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "d60f5b709badbec5387c3ef4c3ad79fa",
     "url": "/build/static/icons/white/icon-96x96.png"
+  },
+  {
+    "revision": "29230277deb9fed2cad1",
+    "url": "/build/vendors~app.css"
+  },
+  {
+    "revision": "29230277deb9fed2cad1",
+    "url": "/build/vendors~app.js"
   }
 ]);
