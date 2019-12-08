@@ -2,7 +2,7 @@
     "name": "anatholius_problem_resolver",
     "version": "0.1.0",
     "description": "Anatholius Problem Resolver",
-    "homepage": "https://anatholius.github.io/",
+    "homepage": "https://anatholius.github.io/problem-resolver/",
     "license": "UNLICENSED",
     "private": true,
     "dependencies": {
