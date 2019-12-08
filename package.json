@@ -33,6 +33,6 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "deploy": "gh-pages -d public/build"
     }
 }
