@@ -1,6 +1,6 @@
 import Log from "./Helpers/Log";
 
-let logInside = false;
+let logInside = true;
 
 const LoggerPlugin = {
     name: 'logger',

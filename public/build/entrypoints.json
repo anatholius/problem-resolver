@@ -1,13 +1,15 @@
 {
   "entrypoints": {
-    "app": {
+    "index": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app.js",
-        "/build/app.js"
+        "https://127.0.0.1:8083/build/runtime.js",
+        "https://127.0.0.1:8083/build/vendors~_tmp_copy~index.js",
+        "https://127.0.0.1:8083/build/vendors~index.js",
+        "https://127.0.0.1:8083/build/index.js"
       ],
       "css": [
-        "/build/vendors~app.css"
+        "https://127.0.0.1:8083/build/vendors~index.css",
+        "https://127.0.0.1:8083/build/index.css"
       ]
     }
   }

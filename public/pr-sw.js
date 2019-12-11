@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/build/precache-manifest.464385574e69b36f8d3a154780ec7198.js"
+  "/build/precache-manifest.bffd78aebddb5e8e15298b21b4c5ecca.js"
 );
 
 workbox.core.skipWaiting();
@@ -27,7 +27,7 @@ workbox.core.skipWaiting();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/\/.*\.(?:json,js,css,scss,html,php)$/, new workbox.strategies.CacheFirst({ "cacheName":"precache-app-files", plugins: [] }), 'GET');
+workbox.routing.registerRoute(/\/.*\.(?:json,js,jsx,css,scss,html,php)$/, new workbox.strategies.CacheFirst({ "cacheName":"precache-app-files", plugins: [] }), 'GET');
 workbox.routing.registerRoute(/\/.*\.(?:svg,png,jpg,jpeg,gif)$/, new workbox.strategies.CacheFirst({ "cacheName":"precache-app-images", plugins: [] }), 'GET');
 workbox.routing.registerRoute(/\/.*\.(?:ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)$/, new workbox.strategies.CacheFirst({ "cacheName":"precache-app-images", plugins: [] }), 'GET');
 workbox.routing.registerRoute("/", new workbox.strategies.CacheFirst({ "cacheName":"precache-app-page", plugins: [] }), 'GET');

@@ -33,9 +33,7 @@ Encore
     /*/
     .splitEntryChunks()
     //*/
-    .addEntry('app', './assets/js/app.js')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('index', './assets/js/index.js')
     
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     
@@ -81,7 +79,6 @@ Encore
     .copyFiles([
         // copies to {output}/static
         {from: './assets/static', to: 'static/[path][name].[ext]'},
-        // {from: './assets/pwa', to: 'pwa/[path][name].[ext]'},
     ])
     
     .configureManifestPlugin((options) => {
@@ -157,7 +154,7 @@ Encore
         "skipWaiting":    true,
         "runtimeCaching": [
             {
-                urlPattern: /\/.*\.(?:json,js,css,scss,html,php)$/,
+                urlPattern: /\/.*\.(?:json,js,jsx,css,scss,html,php)$/,
                 handler:    'CacheFirst',
                 options:    {
                     cacheName: 'precache-app-files',

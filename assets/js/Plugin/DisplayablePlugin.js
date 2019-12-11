@@ -1,4 +1,4 @@
-let logInside = false;
+let logInside = true;
 
 const DisplayablePlugin = {
     name: 'displayable',
@@ -36,7 +36,7 @@ const DisplayablePlugin = {
                 case 'panelLeft':
                     if (!this.display.panel) this.display.panel = {};
 
-                    this.display.panel.left = false;
+                    this.display.panel.left = true;
                     break;
                 case 'panelRight':
                     if (!this.display.panel) this.display.panel = {};

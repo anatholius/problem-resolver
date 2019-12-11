@@ -8,7 +8,7 @@
 
 {% block css_assets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('index') }}
 {% endblock %}
 
 {% block head_javascripts %}
@@ -16,10 +16,10 @@
 {% endblock %}
 
 {% block body %}
-    <div id="app"></div>
+    <div id="root"></div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('index') }}
 {% endblock %}

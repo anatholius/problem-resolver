@@ -1,0 +1,149 @@
+$titleMinWith: 2rem;
+$titleMinHeight: 2rem;
+$titleDistance: .2rem;
+$titleBoxPadding: .1rem;
+$safeAreaHorizontal: .5rem;
+$safeAreaVertical: .5rem;
+$indicatorHeight: .4rem;
+
+._vertical-writing {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+}
+
+._vertical-title {
+  @extend ._vertical-writing;
+  content: attr(title);
+
+  font-size: 1.6rem;
+  padding: 1.5rem 0;
+}
+
+._staged-buttons-title {
+  grid-area: title;
+  background-color: #444;
+  display: block;
+}
+
+//component wrapper
+.staged-buttons {
+  display: grid;
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  grid-template-areas: "staged-title staged-inner";
+  grid-template-columns: 3rem 1fr;
+
+  border: 1px solid #000;
+}
+
+//component title before box
+.staged-buttons[title]::before {
+  grid-area: staged-title;
+  @extend ._vertical-title;
+
+  display: block;
+  position: relative;
+  background: #ddd;
+}
+
+//component content
+.staged-inner {
+  grid-area: staged-inner;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: normal;
+  flex-direction: column;
+
+  background: #ccc;
+}
+
+//stage wrapper
+.stage {
+  grid-area: stage;
+  display: grid;
+
+  border: 1px dotted #444;
+
+  grid-template-areas: "stage-title stage-inner";
+  grid-template-columns: 3rem 1fr;
+  flex-grow: 1;
+}
+
+//stage title
+.stage[title]::before {
+  grid-area: stage-title;
+  @extend ._vertical-title;
+
+  display: block;
+  position: relative;
+  //border: 1px dashed #000;
+  margin: .2rem;
+
+  background: #bbb;
+  //height: min-content;
+}
+
+//stage content
+.stage-inner {
+  grid-area: stage-inner;
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: .5rem;
+
+  background: #fff;
+}
+
+//button element
+.stage-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12.4rem !important;
+  height: 5rem !important;
+  //padding: .2rem .4rem;
+
+  line-height: 1.5rem;
+  text-align: center;
+
+  background: #eee;
+  color: #000;
+  //border: 1px solid #444;
+  border-radius: 18px;
+  margin: .5rem .9rem;
+  font-size: 1.1rem !important;
+
+  .card-content {
+    position: inherit !important;
+    height: auto !important;
+
+    .card-content-background {
+      height: 5rem !important;
+
+      .card-header {
+        height: 5rem !important;
+        font-size: inherit;
+        background: #ddd;
+        color: #000 !important;
+      }
+    }
+
+    .card-content-padding {
+
+    }
+
+  }
+}
+.stage-button:not(.card-opened) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stage-button.card-opened {
+
+}

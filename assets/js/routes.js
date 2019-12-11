@@ -1,11 +1,11 @@
 // import React from 'react';
-import HomePage from './components/pages/HomePage';
-import AboutPage from './components/pages/AboutPage';
-import FormPage from './components/pages/FormPage';
-import DynamicRoutePage from './components/pages/DynamicRoutePage';
-import NotFoundPage from './components/pages/NotFoundPage';
-import PanelLeftPage from './components/pages/PanelLeftPage';
-import PanelRightPage from './components/pages/PanelRightPage';
+import HomePage from './Pages/HomePage';
+import AboutPage from './Pages/AboutPage';
+import FormPage from './Pages/FormPage';
+import DynamicRoutePage from './Pages/DynamicRoutePage';
+import NotFoundPage from './Pages/NotFoundPage';
+import PanelLeftPage from './Pages/PanelLeftPage';
+import PanelRightPage from './Pages/PanelRightPage';
 
 const secure = (component) => {
     return async (routeTo, routeFrom, resolve, reject) => {

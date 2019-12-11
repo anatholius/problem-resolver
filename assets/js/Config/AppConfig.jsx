@@ -6,7 +6,7 @@ export default class AppConfig {
     root = '#app';
     theme = 'auto';
     name = 'Problem Resolver';
-    id = 'pl.anatholius.problems';
+    id = 'pl.anatholius.issues';
     data = {};
     routes = [];
     on = {
